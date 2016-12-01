@@ -31,7 +31,7 @@ public:
 };
 
 //////////////////////////////////
-//		DO IN ASSEMBLY??		//
+//			DONE - KATH			//
 //////////////////////////////////
 ///display the board on the consol
 void displayBoard() {
