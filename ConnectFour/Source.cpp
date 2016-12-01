@@ -149,6 +149,7 @@ int main() {
 			if (curCol == -1)
 				std::cout << "Column is full\nPlease choose a differnt column: ";
 			else {
+				if(placed >= 6)
 					win = check(curCol, rowChoice);
 				placed++;
 				system("cls");
