@@ -2,37 +2,6 @@
 #include<string>
 char board[6][7];
 
-class space {
-private:
-	bool blank = true;
-	bool red = false;
-	bool yellow = false;
-public:
-	space() {};
-
-	void setBlank() {
-		blank = true;
-		red = false;
-		yellow = false;
-	}
-
-	void setRed() {
-		blank = false;
-		red = true;
-		yellow = false;
-	}
-
-	void setYellow() {
-		blank = false;
-		red = false;
-		yellow = true;
-	}
-
-};
-
-//////////////////////////////////
-//		DO IN ASSEMBLY??		//
-//////////////////////////////////
 ///display the board on the consol
 void displayBoard() {
 	std::cout << " 1   2   3   4   5   6   7\n";		//keeps track of columns
@@ -50,9 +19,6 @@ void displayBoard() {
 	}
 }
 
-//////////////////////////////////
-//		DO IN ASSEMBLY			//
-//////////////////////////////////
 ///initalize the game board to all blank spaces
 void emptyBoard() {
 	for (int i = 0; i < 6; i++) {
@@ -62,9 +28,6 @@ void emptyBoard() {
 	}
 }
 
-//////////////////////////////////
-//		DO IN ASSEMBLY			//
-//////////////////////////////////
 ///placing a piece on the board
 int placeTile(int col, char player) {
 	int i;
