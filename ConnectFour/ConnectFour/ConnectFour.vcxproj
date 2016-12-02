@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{08302CC0-66B7-4EFF-BBD3-3CE50DFD4DC8}</ProjectGuid>
+    <ProjectGuid>{B2CC10E9-CCE5-471E-88D5-E8675B62E8A7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>ConnectFour</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
