@@ -1,25 +1,47 @@
 TITLE Connect Four Assembler Code
  
 ;Program Description: Functions written in assembler that will be linked to our C++ main function
-;Author:       Kathleen, Andrew, Ryan, Jusice
-;Creation Date:                 12/1/2016
-;Latest Revision:
+;Author:			Kathleen, Andrew, Ryan, Jusice
+;Creation Date:               12/01/2016
+;Latest Revision:			  12/02/2016
  
 ; 32-bit assembly language template
  
 INCLUDE Irvine32.inc
 ;----------------------------DATA----------------------------------------
 .data
+p1Prompt DWORD "Player 1: What would you like to be known as?",0
+p2Prompt DWORD "Player 2: What would you like to be known as?",0
+buff DWORD 80
+p1Name	DWORD buff+1 DUP(?)
+p2Name	DWORD buff+1 DUP(?)
+
+again DWORD "y",0
+
 blank BYTE " ",0
-redBlue BYTE 14h            ;red text on blue background
-yellowBlue BYTE 30h       ;yellow text on blue background
-whiteBlue BYTE 31h                   ;white text on blue background
-blueBlue BYTE 17h                     ;blue text on blue background
+redBlue BYTE 14h		;red text on blue background
+yellowBlue BYTE 30h		;yellow text on blue background
+whiteBlue BYTE 31h		;white text on blue background
+blueBlue BYTE 17h		;blue text on blue background
 
 
 ;-------------------------------MAIN FUNCTION------------------------------------- 
 .code
 main proc
+	mov eax, p1Prompt		;asks P1 name
+	call WriteString
+	mov edx, offset p1Name	;reads P1 name
+	mov ecx, buff
+	call ReadString
+
+	mov eax, p2Prompt	;asks P2 name
+	call Writestring
+	mov edx, offset p2Name	;reads P2 name
+	mov ecx, buff
+	call ReadString
+
+	call Clrscr
+	call emptyBoard
 	call displayBoard
  
 	call exitProcess
