@@ -107,9 +107,10 @@ int main() {
 	std::cin >> pl1;
 	std::cout << "\nPlayer 2: What would you like to be known as? \n";
 	std::cin >> pl2;
-	system("cls");
+	
 
 	do {
+		system("cls");
 		emptyBoard();
 		displayBoard();		//displays a blank board
 		int rowChoice, curCol = 0, placed = 0;
