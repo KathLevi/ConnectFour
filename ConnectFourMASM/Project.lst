@@ -1,13 +1,12 @@
-Microsoft (R) Macro Assembler Version 14.00.24210.0	    12/01/16 14:50:05
-Connect Four Assembler Cod				     Page 1 - 1
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    11/14/16 23:51:35
+Exam2 Practica						     Page 1 - 1
 
 
-				TITLE Connect Four Assembler Code
+				TITLE Exam2 Practical
 
-				;Program Description: Functions written in assembler that will be linked to our C++ main function
-				;Author:	Kathleen, Andrew, Ryan, Jusice
-				;Creation Date:		12/1/2016
-				;Latest Revision:
+				;Program Description: Exam 2 for assembler
+				;Author:	Kathleen Levi
+				;Creation Date:		11/13/2016
 
 				; 32-bit assembly language template
 
@@ -31,111 +30,157 @@ Microsoft (R) Macro Assembler Version 14.00.24210.0	    12/01/16 14:50:05
 			      C 
 
  00000000			.data
- 00000000 20 00			blank BYTE " ",0
- 00000002 14			redBlue BYTE 14h		;red text on blue background
- 00000003 30			yellowBlue BYTE 30h	;yellow text on blue background
- 00000004 31			whiteBlue BYTE 31h		;white text on blue background
- 00000005 17			blueBlue BYTE 17h		;blue text on blue background
-
-
+ 00000000  00000190 [			randColor DWORD 400 DUP (?)	;400 element array of random colors
+	    00000000
+	   ]
+ 00000640 00000000			topL DWORD 0			;top left index
+ 00000644 00000013			topR DWORD 19		;top right index
+ 00000648 0000017C			botL DWORD 380		;bottom left index
+ 0000064C 0000018F			botR DWORD 399		;bottom right index
+ 00000650 00000000			constTopL DWORD 0		;top left constant
+ 00000654 00000013			constTopR DWORD 19		;top right constant
+ 00000658 0000017C			constBotL DWORD 380		;bottom left constant
+ 0000065C 0000018F			constBotR DWORD 399		;bottom right constant
+ 00000660 00000020			color DWORD " ",0
+	   00000000
  00000000			.code
- 00000000			main proc
- 00000000  E8 00000005			call displayBoard
+ 00000000			main PROC
+ 00000000			forever:
 
- 00000005  E8 00000000 E		call exitProcess
- 0000000A			main endp
-
-				;FUNCTION TO DISPLAY BOARD
- 0000000A			displayBoard PROC USES EAX ECX
- 0000000A  50		   *	    push   eax
- 0000000B  51		   *	    push   ecx
- 0000000C  A1 00000005 R		mov eax, DWORD PTR blueBlue
- 00000011  E8 00000000 E		call settextcolor
- 00000016  E8 00000000 E		call Clrscr
-
- 0000001B  B9 00000006			mov ecx, 6
- 00000020				Loop4:
- 00000020  E8 00000005				call row
- 00000025  E2 F9			loop Loop4	
-					ret
- 00000027  59		   *	    pop    ecx
- 00000028  58		   *	    pop    eax
- 00000029  C3		   *	    ret    00000h
- 0000002A			displayBoard endp
-
-				;FUNCTION TO CREATE A ROW OF THE BOARD
- 0000002A			row PROC USES EAX ECX		;outputs a row of boxes
- 0000002A  50		   *	    push   eax
- 0000002B  51		   *	    push   ecx
- 0000002C  B9 00000007			mov ecx, 7
- 00000031				Loop1:				;ouputs first third of a row of 7 boxes
- 00000031  B0 DA				mov al, 218
- 00000033  E8 00000000 E			call Writechar
- 00000038  B0 C4				mov al, 196
- 0000003A  E8 00000000 E			call Writechar
- 0000003F  B0 BF				mov al, 191
- 00000041  E8 00000000 E			call Writechar
- 00000046  A0 00000000 R			mov al, blank
- 0000004B  E8 00000000 E			call Writechar
- 00000050  E2 DF			loop Loop1
- 00000052  E8 00000000 E		call crlf
-
- 00000057  B9 00000007			mov ecx, 7
- 0000005C				Loop2:				;ouputs second third of a row of 7 boxes
- 0000005C  B0 B3				mov al, 179
- 0000005E  E8 00000000 E			call Writechar
-					;set color for blank space based on player
- 00000063  A1 00000003 R			mov eax, DWORD PTR yellowBlue
- 00000068  E8 00000000 E			call settextcolor	
- 0000006D  A0 00000000 R			mov al, blank
- 00000072  E8 00000000 E			call Writechar
- 00000077  A1 00000005 R			mov eax, DWORD PTR blueBlue		;set color back after outputting blank space
- 0000007C  E8 00000000 E			call settextcolor
- 00000081  B0 B3				mov al, 179
- 00000083  E8 00000000 E			call Writechar
- 00000088  A0 00000000 R			mov al, blank
- 0000008D  E8 00000000 E			call Writechar
- 00000092  E2 C8			loop Loop2
- 00000094  E8 00000000 E		call crlf
-
- 00000099  B9 00000007			mov ecx, 7
- 0000009E				Loop3:				;ouputs last third of a row of 7 boxes
- 0000009E  B0 C0				mov al, 192
- 000000A0  E8 00000000 E			call Writechar
- 000000A5  B0 C4				mov al, 196
- 000000A7  E8 00000000 E			call Writechar
- 000000AC  B0 D9				mov al, 217
- 000000AE  E8 00000000 E			call Writechar
- 000000B3  A0 00000000 R			mov al, blank
- 000000B8  E8 00000000 E			call Writechar
- 000000BD  E2 DF			loop Loop3
- 000000BF  E8 00000000 E		call crlf
-					ret
- 000000C4  59		   *	    pop    ecx
- 000000C5  58		   *	    pop    eax
- 000000C6  C3		   *	    ret    00000h
- 000000C7			row endp
-
-				;FUNCTION TO PLACE TILE
- 000000C7			placeTile PROC
+					;fill array with 400 random colors with 4-fold symmetry
+ 00000000  E8 00000077			call fillArray
 					
- 000000C7  C3				ret
- 000000C8			placeTile endp
+ 00000005  B8 00000000			mov eax, 00h
+ 0000000A  E8 00000000 E		call settextcolor
+ 0000000F  E8 00000000 E		call clrscr
+					
+					;output array with a new line after every 20 elements
+ 00000014  B9 00000014			mov ecx, 20
+ 00000019  BB 00000000			mov ebx, 0
+ 0000001E				outrows:
+ 0000001E  E8 00000130				call elements
+ 00000023  E8 00000000 E			call crlf
+ 00000028  E2 F4			loop outrows
+					
+ 0000002A  C7 05 00000640 R		mov topL, 0
+	   00000000
+ 00000034  C7 05 00000644 R		mov topR, 19
+	   00000013
+ 0000003E  C7 05 00000648 R		mov botL, 380
+	   0000017C
+ 00000048  C7 05 0000064C R		mov botR, 399
+	   0000018F
+ 00000052  C7 05 00000650 R		mov constTopL, 0
+	   00000000
+ 0000005C  C7 05 00000654 R		mov constTopR, 19
+	   00000013
+ 00000066  C7 05 00000658 R		mov constBotL, 380
+	   0000017C
+ 00000070  C7 05 0000065C R		mov constBotR, 399
+	   0000018F
+ 0000007A  E2 84		loop forever
+ 0000007C			main endp
 
-				;FUNCTION TO EMPTY BOARD
- 000000C8			emptyBoard PROC
+ 0000007C			fillArray PROC USES ECX EAX EDX EBX EBP
+					;clear registers
+ 0000007C  51		   *	    push   ecx
+ 0000007D  50		   *	    push   eax
+ 0000007E  52		   *	    push   edx
+ 0000007F  53		   *	    push   ebx
+ 00000080  55		   *	    push   ebp
+ 00000081  33 C9			xor ecx, ecx		;first loop counter
+ 00000083  33 C0			xor eax, eax		;functions use as return register
+ 00000085  33 DB			xor ebx, ebx		;second loop counter
+ 00000087  33 D2			xor edx, edx		;saving a color number
+ 00000089  33 ED			xor ebp, ebp		;used for moving things around
+					
+ 0000008B  B9 0000000A			mov ecx, 10		;only need 100 random values because they are mirrored
+ 00000090  E8 00000000 E		call randomize
+ 00000095				L1:
+ 00000095  B8 00000010				mov eax, 16					;range 0 - 15
+ 0000009A  E8 00000000 E			call RandomRange
+ 0000009F  8B D0				mov edx, eax
+ 000000A1  C1 E0 04				shl eax, 4			;multiply color number by 16
+ 000000A4  03 C2				add eax, edx		;add color number
+						
+ 000000A6  8B 2D 00000640 R			mov ebp, topL
+ 000000AC  88 85 00000000 R			mov BYTE PTR [randColor + ebp], al
+ 000000B2  8B 2D 00000644 R			mov ebp, topR
+ 000000B8  88 85 00000000 R			mov BYTE PTR [randColor + ebp], al
+ 000000BE  8B 2D 00000648 R			mov ebp, botL
+ 000000C4  88 85 00000000 R			mov BYTE PTR [randColor + ebp], al
+ 000000CA  8B 2D 0000064C R			mov ebp, botR
+ 000000D0  88 85 00000000 R			mov BYTE PTR [randColor + ebp], al
 
- 000000C8  C3				ret
- 000000C9			emptyBoard endp
+ 000000D6  FF 05 00000640 R			inc topL
+ 000000DC  FF 0D 00000644 R			dec topR
+ 000000E2  FF 05 00000648 R			inc botL
+ 000000E8  FF 0D 0000064C R			dec botR		
+ 000000EE  E2 A5			loop L1
+					
+					
+ 000000F0  83 05 00000650 R		add constTopL, 20		;add 20 to each constant to stay at the correct index	
+	   14
+ 000000F7  83 05 00000654 R		add constTopR, 20
+	   14
+ 000000FE  83 2D 00000658 R		sub constBotL, 20
+	   14
+ 00000105  83 2D 0000065C R		sub constBotR, 20
+	   14
+ 0000010C  8B 0D 00000650 R		mov ecx, constTopL	
+ 00000112  89 0D 00000640 R		mov topL, ecx			;move the constants to the correct index
+ 00000118  8B 0D 00000654 R		mov ecx, constTopR
+ 0000011E  89 0D 00000644 R		mov topR, ecx
+ 00000124  8B 0D 00000658 R		mov ecx, constBotL
+ 0000012A  89 0D 00000648 R		mov botL, ecx
+ 00000130  8B 0D 0000065C R		mov ecx, constBotR
+ 00000136  89 0D 0000064C R		mov botR, ecx
+					
+ 0000013C  B9 0000000A			mov ecx, 10				;reset the first loop counter
+					
+ 00000141  83 C3 01			add ebx, 1
+ 00000144  83 FB 0A			cmp ebx, 10			;make sure the loop stops after 40 runs
+ 00000147  0F 82 FFFFFF48		jb L1
 
-				;FUNCTION TO CHECK FOR A WINNER
- 000000C9			check PROC
+					ret
+ 0000014D  5D		   *	    pop    ebp
+ 0000014E  5B		   *	    pop    ebx
+ 0000014F  5A		   *	    pop    edx
+ 00000150  58		   *	    pop    eax
+ 00000151  59		   *	    pop    ecx
+ 00000152  C3		   *	    ret    00000h
+ 00000153			fillArray endp
 
- 000000C9  C3				ret
- 000000CA			check endp
+ 00000153			elements PROC USES ECX EAX EDX
+					;clear registers
+ 00000153  51		   *	    push   ecx
+ 00000154  50		   *	    push   eax
+ 00000155  52		   *	    push   edx
+ 00000156  33 C9			xor ecx, ecx		;loop counter
+ 00000158  33 C0			xor eax, eax		;set text color
+ 0000015A  33 D2			xor edx, edx		;write string
+					
+ 0000015C  B9 00000014			mov ecx, 20
+ 00000161				el:
+ 00000161  8A 83 00000000 R			mov al, BYTE PTR [randColor + ebx]
+ 00000167  E8 00000000 E			call settextcolor			;set background color
+
+ 0000016C  BA 00000660 R			mov edx, offset color
+ 00000171  E8 00000000 E			call writestring
+						
+ 00000176  43					inc ebx		;advance the array
+ 00000177  E2 E8			loop el
+					
+					ret
+ 00000179  5A		   *	    pop    edx
+ 0000017A  58		   *	    pop    eax
+ 0000017B  59		   *	    pop    ecx
+ 0000017C  C3		   *	    ret    00000h
+ 0000017D			elements endp
+
 				end main
-Microsoft (R) Macro Assembler Version 14.00.24210.0	    12/01/16 14:50:05
-Connect Four Assembler Cod				     Symbols 2 - 1
+Microsoft (R) Macro Assembler Version 14.00.24210.0	    11/14/16 23:51:35
+Exam2 Practica						     Symbols 2 - 1
 
 
 
@@ -228,8 +273,8 @@ Segments and Groups:
 
 FLAT . . . . . . . . . . . . . .	GROUP
 STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
-_DATA  . . . . . . . . . . . . .	32 Bit	 00000006 Para	  Public  'DATA'	
-_TEXT  . . . . . . . . . . . . .	32 Bit	 000000CA Para	  Public  'CODE'	
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000668 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 0000017D Para	  Public  'CODE'	
 
 
 Procedures, parameters, and locals:
@@ -336,17 +381,14 @@ WriteStackFrame  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External
 WriteString  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteToFile  . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
 WriteWindowsMsg  . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External STDCALL
-check  . . . . . . . . . . . . .	P Near	 000000C9 _TEXT	Length= 00000001 Public STDCALL
-displayBoard . . . . . . . . . .	P Near	 0000000A _TEXT	Length= 00000020 Public STDCALL
-  Loop4  . . . . . . . . . . . .	L Near	 00000020 _TEXT	
-emptyBoard . . . . . . . . . . .	P Near	 000000C8 _TEXT	Length= 00000001 Public STDCALL
-main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000000A Public STDCALL
-placeTile  . . . . . . . . . . .	P Near	 000000C7 _TEXT	Length= 00000001 Public STDCALL
+elements . . . . . . . . . . . .	P Near	 00000153 _TEXT	Length= 0000002A Public STDCALL
+  el . . . . . . . . . . . . . .	L Near	 00000161 _TEXT	
+fillArray  . . . . . . . . . . .	P Near	 0000007C _TEXT	Length= 000000D7 Public STDCALL
+  L1 . . . . . . . . . . . . . .	L Near	 00000095 _TEXT	
+main . . . . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 0000007C Public STDCALL
+  forever  . . . . . . . . . . .	L Near	 00000000 _TEXT	
+  outrows  . . . . . . . . . . .	L Near	 0000001E _TEXT	
 printf . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
-row  . . . . . . . . . . . . . .	P Near	 0000002A _TEXT	Length= 0000009D Public STDCALL
-  Loop1  . . . . . . . . . . . .	L Near	 00000031 _TEXT	
-  Loop2  . . . . . . . . . . . .	L Near	 0000005C _TEXT	
-  Loop3  . . . . . . . . . . . .	L Near	 0000009E _TEXT	
 scanf  . . . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 wsprintfA  . . . . . . . . . . .	P Near	 00000000 FLAT	Length= 00000000 External C
 
@@ -565,10 +607,15 @@ WINDOW_BUFFER_SIZE_EVENT . . . .	Number	 00000004h
 WriteConsoleOutputCharacter  . .	Text   	 WriteConsoleOutputCharacterA
 WriteConsole . . . . . . . . . .	Text   	 WriteConsoleA
 black  . . . . . . . . . . . . .	Number	 00000000h   
-blank  . . . . . . . . . . . . .	Byte	 00000000 _DATA	
-blueBlue . . . . . . . . . . . .	Byte	 00000005 _DATA	
 blue . . . . . . . . . . . . . .	Number	 00000001h   
+botL . . . . . . . . . . . . . .	DWord	 00000648 _DATA	
+botR . . . . . . . . . . . . . .	DWord	 0000064C _DATA	
 brown  . . . . . . . . . . . . .	Number	 00000006h   
+color  . . . . . . . . . . . . .	DWord	 00000660 _DATA	
+constBotL  . . . . . . . . . . .	DWord	 00000658 _DATA	
+constBotR  . . . . . . . . . . .	DWord	 0000065C _DATA	
+constTopL  . . . . . . . . . . .	DWord	 00000650 _DATA	
+constTopR  . . . . . . . . . . .	DWord	 00000654 _DATA	
 cyan . . . . . . . . . . . . . .	Number	 00000003h   
 exit . . . . . . . . . . . . . .	Text   	 INVOKE ExitProcess,0
 gray . . . . . . . . . . . . . .	Number	 00000008h   
@@ -580,12 +627,12 @@ lightGreen . . . . . . . . . . .	Number	 0000000Ah
 lightMagenta . . . . . . . . . .	Number	 0000000Dh   
 lightRed . . . . . . . . . . . .	Number	 0000000Ch   
 magenta  . . . . . . . . . . . .	Number	 00000005h   
-redBlue  . . . . . . . . . . . .	Byte	 00000002 _DATA	
+randColor  . . . . . . . . . . .	DWord	 00000000 _DATA	
 red  . . . . . . . . . . . . . .	Number	 00000004h   
-whiteBlue  . . . . . . . . . . .	Byte	 00000004 _DATA	
+topL . . . . . . . . . . . . . .	DWord	 00000640 _DATA	
+topR . . . . . . . . . . . . . .	DWord	 00000644 _DATA	
 white  . . . . . . . . . . . . .	Number	 0000000Fh   
 wsprintf . . . . . . . . . . . .	Text   	 wsprintfA
-yellowBlue . . . . . . . . . . .	Byte	 00000003 _DATA	
 yellow . . . . . . . . . . . . .	Number	 0000000Eh   
 
 	   0 Warnings
